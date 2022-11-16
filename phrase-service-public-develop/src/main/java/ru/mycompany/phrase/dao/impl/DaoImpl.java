@@ -81,7 +81,10 @@ public class DaoImpl extends JdbcDaoSupport implements Dao {
 
         phraseRepository.save(Phrase.builder().userId(userId).text(text).build());
 
-        return jdbcTemplate.queryForObject("SELECT id FROM phrase WHERE id = LAST_INSERT_ID();", Long.class);
+        return  phraseRepository.save(Phrase.builder().userId(userId).text(text).build()).getId();
+        //
+//        jdbcTemplate.update("INSERT INTO phrase(user_id,text) VALUES (?,?);", userId, text);
+//       return   jdbcTemplate.queryForObject("SELECT id FROM phrase WHERE id = LAST_INSERT_ID();", Long.class);
     }//last_insert_id вернуть id последнего добавленного  элемента
 
 
